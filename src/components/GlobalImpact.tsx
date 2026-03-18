@@ -82,15 +82,15 @@ const GlobalImpact = () => {
               <div 
                 key={index} 
                 className={`
-                  rounded-xl border border-border bg-card p-4 shadow-sm
+                  rounded-2xl border border-border bg-card p-4 shadow-sm dark:border-[var(--border-color)] dark:bg-[var(--card-bg)]
                   transition-all duration-700 ease-out
                   ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
                 `}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-center mb-3">
-                  <div className="p-2 rounded-lg bg-primary/10 mr-3">
-                    <Icon className="h-5 w-5 text-primary" />
+                  <div className="p-2 rounded-lg bg-primary/10 mr-3 dark:bg-[var(--bg-secondary)]">
+                    <Icon className="h-5 w-5 text-primary dark:text-[var(--text-secondary)]" />
                   </div>
                   <h3 className="font-bold text-foreground text-sm">{stat.title}</h3>
                 </div>

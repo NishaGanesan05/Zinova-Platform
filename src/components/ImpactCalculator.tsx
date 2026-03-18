@@ -81,7 +81,7 @@ const ImpactCalculator = () => {
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Calculator Controls */}
-          <div className="rounded-xl border border-border bg-card p-6 shadow-sm lg:col-span-1">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm dark:border-[var(--border-color)] dark:bg-[var(--card-bg)] lg:col-span-1">
             <h3 className="mb-6 text-xl font-bold text-foreground">Your Food Waste</h3>
             
             <div className="space-y-6">
@@ -132,7 +132,7 @@ const ImpactCalculator = () => {
               </div>
               
               <div className="pt-4">
-                <div className="rounded-lg bg-primary/5 p-4">
+                <div className="rounded-lg bg-primary/5 p-4 dark:bg-[var(--bg-secondary)]">
                   <h4 className="font-bold text-foreground mb-2">With Zinova:</h4>
                   <p className="text-sm text-muted-foreground">
                     {foodWaste > 0 ? (
@@ -154,10 +154,10 @@ const ImpactCalculator = () => {
                 return (
                   <div 
                     key={index} 
-                    className="rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-md"
+                    className="rounded-2xl border border-border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-md dark:border-[var(--border-color)] dark:bg-[var(--card-bg)]"
                   >
                     <div className="flex items-start mb-4">
-                      <div className={`mr-4 rounded-lg p-3 ${item.color}/10`}>
+                      <div className={`mr-4 rounded-lg p-3 ${item.color}/10 dark:bg-[var(--bg-secondary)]`}>
                         <Icon className={`h-6 w-6 ${item.color}`} />
                       </div>
                       <div>
@@ -179,7 +179,7 @@ const ImpactCalculator = () => {
               })}
             </div>
             
-            <div className="mt-8 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 p-6 text-white shadow-sm">
+            <div className="mt-8 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 p-6 text-white shadow-sm dark:from-[var(--bg-secondary)] dark:to-[var(--bg-primary)] dark:text-[var(--text-primary)]">
               <div className="flex flex-col items-center gap-4 md:flex-row md:items-center md:gap-6">
                 <div className="flex items-center">
                   <Heart className="h-8 w-8 mr-3" />
@@ -190,7 +190,7 @@ const ImpactCalculator = () => {
                     </p>
                   </div>
                 </div>
-                <button className="whitespace-nowrap rounded-lg bg-white px-6 py-3 font-semibold text-green-700 transition-colors hover:bg-gray-100 md:ml-auto">
+                <button className="whitespace-nowrap rounded-lg bg-white px-6 py-3 font-semibold text-green-700 transition-colors hover:bg-gray-100 dark:border dark:border-[var(--border-color)] dark:bg-[var(--card-bg)] dark:text-[var(--text-primary)] dark:hover:bg-[var(--bg-secondary)] md:ml-auto">
                   Get Started Today
                 </button>
               </div>

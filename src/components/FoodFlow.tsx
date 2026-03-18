@@ -25,7 +25,7 @@ const FoodFlow = () => {
   }, [steps.length]);
 
   return (
-    <section className="bg-gradient-to-r from-green-50 to-blue-50 px-4 py-16 sm:px-6 lg:py-20">
+    <section className="bg-gradient-to-r from-green-50 to-blue-50 px-4 py-16 dark:from-[var(--bg-primary)] dark:to-[var(--bg-secondary)] sm:px-6 lg:py-20">
       <div className="max-w-4xl mx-auto">
         <h2 className="mb-12 text-center text-3xl font-bold text-foreground md:text-4xl">
           The Zinova Food Flow
@@ -46,8 +46,8 @@ const FoodFlow = () => {
                 <div key={index} className="flex flex-col items-center z-10">
                   <div className={`
                     w-16 h-16 rounded-full flex items-center justify-center mb-3 transition-all duration-500
-                    ${isActive ? 'bg-white shadow-lg scale-110 ring-4 ring-accent' : ''}
-                    ${isCompleted ? 'bg-white shadow-md' : 'bg-white/80'}
+                    ${isActive ? 'bg-white shadow-lg scale-110 ring-4 ring-accent dark:border dark:border-[var(--border-color)] dark:bg-[var(--card-bg)]' : ''}
+                    ${isCompleted ? 'bg-white shadow-md dark:border dark:border-[var(--border-color)] dark:bg-[var(--card-bg)]' : 'bg-white/80 dark:border dark:border-[var(--border-color)] dark:bg-[var(--card-bg)]/80'}
                   `}>
                     {IconComponent && <IconComponent className={`w-8 h-8 ${step.color} ${isActive ? 'animate-pulse' : ''}`} />}
                   </div>

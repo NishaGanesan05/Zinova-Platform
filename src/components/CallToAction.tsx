@@ -62,8 +62,8 @@ const CallToAction = () => {
                 const Icon = benefit.icon;
                 return (
                   <div key={index} className="flex items-start gap-4">
-                    <div className="rounded-lg bg-primary-foreground/10 p-2">
-                      <Icon className="h-5 w-5 text-accent" />
+                    <div className="rounded-lg bg-primary-foreground/10 p-2 dark:bg-[var(--bg-secondary)]">
+                      <Icon className="h-5 w-5 text-accent dark:text-[var(--text-secondary)]" />
                     </div>
                     <div>
                       <h3 className="font-bold text-primary-foreground">{benefit.title}</h3>
@@ -80,7 +80,7 @@ const CallToAction = () => {
               <AnimatedButton 
                 size="lg" 
                 variant="secondary"
-                className="bg-white text-primary hover:bg-gray-100"
+                className="bg-accent text-accent-foreground hover:bg-accent/90 dark:bg-accent dark:text-accent-foreground"
                 animationType="lift"
               >
                 Schedule Demo
@@ -88,7 +88,7 @@ const CallToAction = () => {
               <AnimatedButton 
                 size="lg" 
                 variant="outline"
-                className="border-white/80 bg-transparent text-white hover:border-white hover:bg-white hover:text-primary focus-visible:ring-white/80"
+                className="opacity-100 border border-white/80 bg-transparent text-white hover:border-white hover:bg-white hover:text-primary focus-visible:ring-white/80 dark:border-[var(--border-color)] dark:text-[var(--text-primary)] dark:hover:bg-[var(--card-bg)] dark:hover:text-[var(--text-primary)]"
                 animationType="lift"
               >
                 View Case Studies
@@ -97,7 +97,7 @@ const CallToAction = () => {
           </div>
           
           {/* Right Column - Email Signup */}
-          <div className="rounded-2xl border border-primary-foreground/20 bg-card/10 p-8 backdrop-blur-sm">
+          <div className="rounded-2xl border border-primary-foreground/20 bg-card/10 p-8 backdrop-blur-sm dark:border-[var(--border-color)] dark:bg-[var(--card-bg)]/70">
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-primary-foreground mb-2">
                 Ready to Get Started?
@@ -129,7 +129,7 @@ const CallToAction = () => {
                     type="text"
                     id="name"
                     placeholder="Enter your name"
-                    className="w-full rounded-lg border border-primary-foreground/20 bg-white/10 px-4 py-3 text-white placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="w-full rounded-lg border border-primary-foreground/20 bg-white/10 px-4 py-3 text-white placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent dark:border-[var(--border-color)] dark:bg-[#0f2a23] dark:text-[var(--text-primary)] dark:placeholder:text-[var(--text-secondary)]"
                   />
                 </div>
                 
@@ -144,7 +144,7 @@ const CallToAction = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="w-full rounded-lg border border-primary-foreground/20 bg-white/10 px-4 py-3 text-white placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="w-full rounded-lg border border-primary-foreground/20 bg-white/10 px-4 py-3 text-white placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent dark:border-[var(--border-color)] dark:bg-[#0f2a23] dark:text-[var(--text-primary)] dark:placeholder:text-[var(--text-secondary)]"
                   />
                 </div>
                 
@@ -156,7 +156,7 @@ const CallToAction = () => {
                     type="text"
                     id="organization"
                     placeholder="Restaurant, NGO, Farm, etc."
-                    className="w-full rounded-lg border border-primary-foreground/20 bg-white/10 px-4 py-3 text-white placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="w-full rounded-lg border border-primary-foreground/20 bg-white/10 px-4 py-3 text-white placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent dark:border-[var(--border-color)] dark:bg-[#0f2a23] dark:text-[var(--text-primary)] dark:placeholder:text-[var(--text-secondary)]"
                   />
                 </div>
                 

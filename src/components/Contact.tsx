@@ -44,19 +44,19 @@ const Contact = () => {
         </div>
         
         {isSubmitted ? (
-          <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="rounded-2xl border border-green-200 bg-green-50 p-8 text-center dark:border-[var(--border-color)] dark:bg-[var(--card-bg)]">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 dark:bg-[var(--bg-secondary)]">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="text-2xl font-bold text-green-800 mb-2">
+            <h3 className="text-2xl font-bold text-green-800 mb-2 dark:text-[var(--text-primary)]">
               Thank You!
             </h3>
-            <p className="text-green-700">
+            <p className="text-green-700 dark:text-[var(--text-secondary)]">
               We've received your message and will contact you soon.
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6 rounded-xl border border-border bg-background p-6 shadow-sm">
+          <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border border-border bg-background p-6 shadow-sm dark:border-[var(--border-color)] dark:bg-[var(--card-bg)]">
             <div className="space-y-2">
               <div className="relative">
                 <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
