@@ -88,7 +88,7 @@ const CallToAction = () => {
               <AnimatedButton 
                 size="lg" 
                 variant="outline"
-                className="border-white text-white hover:bg-white/10"
+                className="border-white/80 bg-transparent text-white hover:border-white hover:bg-white hover:text-primary focus-visible:ring-white/80"
                 animationType="lift"
               >
                 View Case Studies

@@ -10,29 +10,29 @@ const GlobalImpact = () => {
     {
       icon: Leaf,
       title: "Food Waste",
-      value: 1300000000, // 1.3 billion tons
-      suffix: "",
+      value: 1050000000, // 1.05 billion tons
+      unit: " tons",
       description: "wasted annually"
     },
     {
       icon: Users,
       title: "People Affected",
-      value: 673000000, // 673 million people
-      suffix: "",
+      value: 733000000, // 733 million people
+      unit: " people",
       description: "globally"
     },
     {
       icon: TrendingUp,
       title: "CO₂ Emissions",
       value: 3300000000, // 3.3 billion tons
-      suffix: "",
+      unit: " tons CO₂e",
       description: "from food waste"
     },
     {
       icon: Globe,
       title: "Water Wasted",
       value: 250000000000, // 250 billion cubic meters
-      suffix: "",
+      unit: " m³",
       description: "used in food production"
     }
   ];
@@ -51,14 +51,6 @@ const GlobalImpact = () => {
     }
 
     return value.toLocaleString();
-  };
-
-  const getUnit = (title: string) => {
-    if (title === "Food Waste") return " tons";
-    if (title === "People Affected") return " people";
-    if (title === "CO₂ Emissions") return " tons";
-    if (title === "Water Wasted") return " m³";
-    return "";
   };
 
   useEffect(() => {
@@ -106,7 +98,7 @@ const GlobalImpact = () => {
                 <div className="mb-2">
                   <AnimatedCounter
                     target={stat.value}
-                    suffix={getUnit(stat.title)}
+                    suffix={stat.unit}
                     duration={2000}
                     formatValue={formatShortScale}
                     className="text-2xl font-bold text-primary md:text-3xl"
