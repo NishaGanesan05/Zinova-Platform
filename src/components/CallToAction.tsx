@@ -1,23 +1,63 @@
 import { useState } from "react";
 import { Leaf, Zap, Heart, Users } from "lucide-react";
 import AnimatedButton from "@/components/ui/animated-button";
+import { logError, logUserAction } from "@/lib/logger";
 
 const CallToAction = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const safeLogUserAction = (action: string, metadata: Record<string, unknown>) => {
+    try {
+      logUserAction(action, metadata, "CallToAction");
+    } catch {
+      // Logging should never break CTA flow.
+    }
+  };
+
+  const safeLogError = (action: string, metadata: Record<string, unknown>) => {
+    try {
+      logError(action, metadata, "CallToAction");
+    } catch {
+      // Logging should never break CTA flow.
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      // In a real app, this would connect to your backend
-      console.log("Email submitted:", email);
+    if (!email.trim()) {
+      safeLogError("VALIDATION_ERROR", {
+        form: "contact",
+        field: "email",
+        message: "Invalid email format",
+      });
+      return;
+    }
+
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isEmailValid) {
+      safeLogError("VALIDATION_ERROR", {
+        form: "contact",
+        field: "email",
+        message: "Invalid email format",
+      });
+      return;
+    }
+
+    try {
+      safeLogUserAction("FORM_SUBMIT", { form: "contact" });
       setIsSubmitted(true);
       setEmail("");
-      
+      safeLogUserAction("FORM_SUCCESS", { form: "contact" });
+
       // Reset after 3 seconds
       setTimeout(() => {
         setIsSubmitted(false);
       }, 3000);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      safeLogError("FORM_ERROR", { form: "contact", error: errorMessage });
+      throw error;
     }
   };
 
@@ -82,6 +122,9 @@ const CallToAction = () => {
                 variant="secondary"
                 className="bg-accent text-accent-foreground hover:bg-accent/90 dark:bg-accent dark:text-accent-foreground"
                 animationType="lift"
+                onClick={() => {
+                  safeLogUserAction("CTA_CLICK", { label: "Schedule Demo" });
+                }}
               >
                 Schedule Demo
               </AnimatedButton>
@@ -90,6 +133,9 @@ const CallToAction = () => {
                 variant="outline"
                 className="opacity-100 border border-white/80 bg-transparent text-white hover:border-white hover:bg-white hover:text-primary focus-visible:ring-white/80 dark:border-[var(--border-color)] dark:text-[var(--text-primary)] dark:hover:bg-[var(--card-bg)] dark:hover:text-[var(--text-primary)]"
                 animationType="lift"
+                onClick={() => {
+                  safeLogUserAction("CTA_CLICK", { label: "View Case Studies" });
+                }}
               >
                 View Case Studies
               </AnimatedButton>
@@ -166,6 +212,9 @@ const CallToAction = () => {
                     size="lg" 
                     className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                     animationType="pulse"
+                    onClick={() => {
+                      safeLogUserAction("CTA_CLICK", { label: "Join Movement" });
+                    }}
                   >
                     Join the Movement
                   </AnimatedButton>

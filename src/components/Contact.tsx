@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Send, User, Mail, Building, MessageSquare, CheckCircle } from "lucide-react";
 import AnimatedButton from "@/components/ui/animated-button";
+import { logError, logUserAction } from "@/lib/logger";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -15,19 +16,56 @@ const Contact = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const safeLogUserAction = (action: string, metadata: Record<string, unknown>) => {
+    try {
+      logUserAction(action, metadata, "ContactForm");
+    } catch {
+      // Logging should never break form flow.
+    }
+  };
+
+  const safeLogError = (action: string, metadata: Record<string, unknown>) => {
+    try {
+      logError(action, metadata, "ContactForm");
+    } catch {
+      // Logging should never break form flow.
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message sent",
-      description: "Thank you for your interest. We'll get back to you soon.",
-    });
-    setIsSubmitted(true);
-    setFormData({ name: "", email: "", organization: "", message: "" });
-    
-    // Reset submission status after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 3000);
+
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+    if (!isEmailValid) {
+      safeLogError("VALIDATION_ERROR", {
+        form: "contact",
+        field: "email",
+        message: "Invalid email format",
+      });
+      return;
+    }
+
+    try {
+      safeLogUserAction("FORM_SUBMIT", { form: "contact" });
+
+      toast({
+        title: "Message sent",
+        description: "Thank you for your interest. We'll get back to you soon.",
+      });
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", organization: "", message: "" });
+
+      safeLogUserAction("FORM_SUCCESS", { form: "contact" });
+
+      // Reset submission status after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      safeLogError("FORM_ERROR", { form: "contact", error: errorMessage });
+      throw error;
+    }
   };
 
   return (

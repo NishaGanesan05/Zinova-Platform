@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Leaf, Users, Heart, Package, TrendingUp } from "lucide-react";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { logUserAction, logError } from "@/lib/logger";
 
 const ImpactCalculator = () => {
   const [foodWaste, setFoodWaste] = useState(100); // kg per week
@@ -11,6 +12,30 @@ const ImpactCalculator = () => {
     waterSaved: 0,
     peopleFed: 0
   });
+
+  const handleSliderChange = (field: "foodWaste" | "timePeriod", value: number) => {
+    try {
+      logUserAction(
+        "CALCULATOR_CHANGE",
+        {
+          field,
+          value,
+        },
+        "ImpactCalculator"
+      );
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      try {
+        logError(
+          "LOGGING_ERROR",
+          { source: "CALCULATOR_CHANGE", error: errorMessage },
+          "ImpactCalculator"
+        );
+      } catch {
+        // Logging should never block calculator interactions.
+      }
+    }
+  };
 
   // Calculate impact based on food waste and time period
   useEffect(() => {
@@ -95,7 +120,11 @@ const ImpactCalculator = () => {
                     min="0"
                     max="500"
                     value={foodWaste}
-                    onChange={(e) => setFoodWaste(Number(e.target.value))}
+                    onChange={(e) => {
+                      const value = Number(e.target.value);
+                      setFoodWaste(value);
+                      handleSliderChange("foodWaste", value);
+                    }}
                     className="w-full h-2 bg-primary/20 rounded-lg appearance-none cursor-pointer"
                   />
                   <span className="text-lg font-bold text-primary min-w-[60px]">
@@ -118,7 +147,11 @@ const ImpactCalculator = () => {
                     min="1"
                     max="24"
                     value={timePeriod}
-                    onChange={(e) => setTimePeriod(Number(e.target.value))}
+                    onChange={(e) => {
+                      const value = Number(e.target.value);
+                      setTimePeriod(value);
+                      handleSliderChange("timePeriod", value);
+                    }}
                     className="w-full h-2 bg-primary/20 rounded-lg appearance-none cursor-pointer"
                   />
                   <span className="text-lg font-bold text-primary min-w-[60px]">
@@ -190,7 +223,20 @@ const ImpactCalculator = () => {
                     </p>
                   </div>
                 </div>
-                <button className="whitespace-nowrap rounded-lg bg-white px-6 py-3 font-semibold text-green-700 transition-colors hover:bg-gray-100 dark:border dark:border-[var(--border-color)] dark:bg-[var(--card-bg)] dark:text-[var(--text-primary)] dark:hover:bg-[var(--bg-secondary)] md:ml-auto">
+                <button
+                  onClick={() => {
+                    try {
+                      logUserAction(
+                        "CTA_CLICK",
+                        { label: "Get Started Today" },
+                        "ImpactCalculator"
+                      );
+                    } catch {
+                      // Logging should never block CTA behavior.
+                    }
+                  }}
+                  className="whitespace-nowrap rounded-lg bg-white px-6 py-3 font-semibold text-green-700 transition-colors hover:bg-gray-100 dark:border dark:border-[var(--border-color)] dark:bg-[var(--card-bg)] dark:text-[var(--text-primary)] dark:hover:bg-[var(--bg-secondary)] md:ml-auto"
+                >
                   Get Started Today
                 </button>
               </div>
