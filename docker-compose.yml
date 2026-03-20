@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    healthcheck:
+      test: ["CMD", "sh", "-c", "wget -qO- http://localhost:5000/health || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - VITE_API_BASE_URL=http://backend:5000
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
