@@ -1,24 +1,77 @@
-# Logs
-logs
+# ── Node / Frontend ───────────────────────────────────────────────────────────
+node_modules
+dist
+dist-ssr
+.vite
+*.local
+
+# ── Python / Backend ──────────────────────────────────────────────────────────
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ── Environment Secrets ───────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── Service Account Keys (Google, etc.) ───────────────────────────────────────
+*.json
+!package.json
+!tsconfig.json
+!components.json
+service_account.json
+credentials.json
+
+# ── OS Files ──────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+desktop.ini
+*.suo
+*.sw?
+*.swp
+*.swo
+*~
+
+# ── IDE / Editor ──────────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+.idea
+*.iml
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# ── Testing ───────────────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# ── Build ─────────────────────────────────────────────────────────────────────
+build/
+.next/
+out/
+*.tgz
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+.dockerignore

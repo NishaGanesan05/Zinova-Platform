@@ -1,6 +1,8 @@
 node_modules
 dist
+.env.local
+.vite
 .git
-.gitignore
-Dockerfile
-docker-compose.yml
+*.log
+backend
+nginx
